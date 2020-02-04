@@ -10,7 +10,19 @@ namespace BlazorPik.Tests
         public void HasName()
         {
             var teaser = new ContactTeaser();
-            Assert.Equal("", teaser.Name);
+            var name = teaser.Name;
+        }
+
+        public void HasAddress()
+        {
+            var teaser = new ContactTeaser();
+            var name = teaser.Address;
+        }
+
+        public void HasEmails()
+        {
+            var teaser = new ContactTeaser();
+            var name = teaser.Emails;
         }
     }
 }
