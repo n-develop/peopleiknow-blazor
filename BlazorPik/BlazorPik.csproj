@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-BlazorPik-638C30D8-7C01-4B0D-A41B-AD9F348D6F2F</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\bulma\bulma.css" />
+    <None Include="wwwroot\lib\bulma\bulma.css.map" />
+    <None Include="wwwroot\lib\bulma\bulma.min.css" />
+    <None Include="wwwroot\lib\fontawesome\font-awesome.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\contacts\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\bulma\bulma.css" />
+    <Content Remove="wwwroot\lib\bulma\bulma.css.map" />
+    <Content Remove="wwwroot\lib\bulma\bulma.min.css" />
+    <Content Remove="wwwroot\lib\fontawesome\font-awesome.js" />
+  </ItemGroup>
+</Project>
