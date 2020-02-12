@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlazorPik.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,5 +10,15 @@ namespace BlazorPik.Data
             : base(options)
         {
         }
+
+        public DbSet<Contact> Contacts { get; set; }
+
+        public DbSet<EmailAddress> EmailAddresses { get; set; }
+
+        public DbSet<Relationship> Relationships { get; set; }
+
+        public DbSet<StatusUpdate> StatusUpdates { get; set; }
+
+        public DbSet<TelephoneNumber> TelephoneNumbers { get; set; }
     }
 }

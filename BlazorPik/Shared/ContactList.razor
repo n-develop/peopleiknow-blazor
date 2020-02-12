@@ -1,11 +1,10 @@
-﻿<div id="people-feed" class="column is-4-desktop is-full-mobile feed">
-    <ContactTeaser />
-    <ContactTeaser />
-    <ContactTeaser />
-    <ContactTeaser />
-    <ContactTeaser />
+﻿@inherits ContactListCode
+
+<div id="people-feed" class="column is-4-desktop is-full-mobile feed">
+    @foreach(var c in Contacts)
+    {
+        <ContactTeaser Contact="@c" TeaserSelected="ContactSelected" />
+    }
 </div>
 
-@code {
 
-}

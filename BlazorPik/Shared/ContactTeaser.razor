@@ -1,4 +1,4 @@
-﻿<div class="card" id="contact-teaser-007" data-contact-id="007">
+﻿<div class="card" id="contact-teaser-@Contact.Id" data-contact-id="@Contact.Id" @onclick="TeaserClicked">
     <div class="card-content">
         <div class="media">
             <div class="media-left">
@@ -7,25 +7,22 @@
                 </figure>
             </div>
             <div class="media-content">
-                <span class="is-pulled-right is-4 title favorite" data-contact-id="007">
+                <span class="is-pulled-right is-4 title favorite" data-contact-id="@Contact.Id">
                     <i class="far fa-heart"></i>
                 </span>
-                <p class="title is-4">Max Mustermann</p>
-                <p class="subtitle is-6">max@mustermann.de</p>
+                <p class="title is-4">@Contact.Firstname @Contact.Lastname</p>
+                <p class="subtitle is-6">@Contact.EmailAddress</p>
             </div>
         </div>
 
         <div class="content">
                 <i class="fa fa-map-marked-alt"></i>
-                Musterweg 12, 38294 Musterstadt<br />
+                @Contact.Address<br />
                 <i class="fa fa-building"></i>
-                Best Place to work<br />
+                @Contact.Employer<br />
                 <i class="fa fa-briefcase"></i>
-                Employee of the month<br />
+                @Contact.BusinessTitle<br />
         </div>
     </div>
 </div>
 
-@code {
-
-}

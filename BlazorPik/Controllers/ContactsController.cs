@@ -1,28 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using BlazorPik.Data;
+using BlazorPik.Models;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BlazorPik.Controllers
 {
     [Route("api/[controller]")]
     public class ContactsController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ApplicationDbContext _dbContext;
+
+        public ContactsController(ApplicationDbContext dbContext)
         {
-            return new string[] { "value1", "value2" };
+            _dbContext = dbContext;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/contacts
+        [HttpGet]
+        public IEnumerable<ContactTeaserModel> Get()
         {
-            return "value";
+            try
+            {
+                var contacts = _dbContext.Contacts.ToList();
+
+                return contacts.Select(c => new ContactTeaserModel {
+                    Firstname = c.Firstname,
+                    Lastname = c.Lastname,
+                    Address = c.Address,
+                    BusinessTitle = c.BusinessTitle,
+                    Employer = c.Employer,
+                    Id = c.Id,
+                    ImagePath = c.ImagePath,
+                    IsFavorite = c.IsFavorite,
+                    Middlename = c.Middlename,
+                    Tags = c.Tags,
+                    EmailAddress = c.EmailAddresses?.FirstOrDefault()?.Email
+                }).ToList();
+            }
+            catch (System.Exception ex)
+            {
+                return new List<ContactTeaserModel>();
+            }
+        }
+
+        // GET api/contacts/5
+        [HttpGet("{id}")]
+        public Contact Get(int id)
+        {
+            var contact = _dbContext.Contacts.Find(id);
+            return contact;
         }
 
         // POST api/values

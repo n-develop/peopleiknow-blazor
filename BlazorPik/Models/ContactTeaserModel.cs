@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlazorPik.Models
 {
-    public class ContactTeaser
+    public class ContactTeaserModel
     {
         public int Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace BlazorPik.Models
 
         public string Address { get; set; }
 
-        public List<EmailAddress> EmailAddresses { get; set; }
+        public string EmailAddress { get; set; }
 
         public string Employer { get; set; }
 
