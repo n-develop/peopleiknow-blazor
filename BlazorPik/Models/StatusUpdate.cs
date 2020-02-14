@@ -11,7 +11,8 @@ namespace BlazorPik.Models
 
         public int ContactId { get; set; }
 
-        [IgnoreDataMember] public virtual Contact Contact { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore] 
+        public virtual Contact Contact { get; set; }
 
         public virtual bool IsNull()
         {

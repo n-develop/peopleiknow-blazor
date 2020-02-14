@@ -3,6 +3,7 @@ using System.Linq;
 using BlazorPik.Data;
 using BlazorPik.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorPik.Controllers
 {
@@ -48,8 +49,13 @@ namespace BlazorPik.Controllers
         [HttpGet("{id}")]
         public Contact Get(int id)
         {
-            var contact = _dbContext.Contacts.Find(id);
-            return contact;
+            var contact = _dbContext.Contacts
+                .Include(c => c.EmailAddresses)
+                .Include(c => c.TelephoneNumbers)
+                .Include(c => c.Relationships)
+                .Include(c => c.StatusUpdates)
+                .FirstOrDefault(c => c.Id == id);
+            return contact ?? NullContact.GetInstance();
         }
 
         // POST api/values
