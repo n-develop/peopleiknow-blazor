@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorPik.Shared
 {
-    public class ContactListCode : ComponentBase
+    public partial class ContactList
     {
         [Parameter]
         public EventCallback<Contact> TeaserSelected { get; set; }
