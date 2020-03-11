@@ -1,7 +1,15 @@
 ﻿@page "/"
 
 <div id="pik-app" class="columns">
-    <ContactList TeaserSelected="ContactSelected" />
+    @if (Contacts != null)
+    {
+        <ContactList Contacts="Contacts" TeaserSelected="ContactSelected"/>
+    }
+    else
+    {
+        <div id="people-feed" class="column is-4-desktop is-full-mobile feed">
+        </div>
+    }
 
     <div id="people-pane" class="column is-8-desktop is-hidden-mobile pane">
         <div class="columns is-desktop is-vcentered" style="height: 100%;">
@@ -12,7 +20,7 @@
                 }
                 else
                 {
-                    <ContactEditor Contact="SelectedContact" />
+                    <ContactEditor Contact="SelectedContact"/>
                 }
             </div>
         </div>

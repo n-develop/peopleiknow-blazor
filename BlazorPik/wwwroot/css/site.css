@@ -29,9 +29,9 @@ html, body {
     overflow-y: scroll;
 }
 
-    .pane > .box {
-        margin: 10px 10px 0 0;
-    }
+.contact-preview {
+    margin: 10px 10px 0 0;
+}
 
 .highlight-color {
     color: #0139D3;

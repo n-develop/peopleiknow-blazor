@@ -17,10 +17,5 @@ namespace BlazorPik.Shared
         {
             TeaserSelected.InvokeAsync(Contact.Id);
         }
-
-        protected override Task OnInitializedAsync()
-        {
-            return base.OnInitializedAsync();
-        }
     }
 }
