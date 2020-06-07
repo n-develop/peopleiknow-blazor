@@ -19,6 +19,19 @@ namespace BlazorPik.Pages
                 SelectedContact = c;
             }
         }
+
+        async Task UpdateContact()
+        {
+            var result = await ContactService.UpdateContact(SelectedContact);
+            if (result.IsNull())
+            {
+                // Todo was ist hier zu tun?
+            }
+            else
+            {
+                SelectedContact = result;
+            }
+        }
         
         protected override async Task OnInitializedAsync()
         {

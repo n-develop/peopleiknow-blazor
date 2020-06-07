@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BlazorPik.Data;
 using BlazorPik.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -64,10 +65,19 @@ namespace BlazorPik.Controllers
         {
         }
 
-        // PUT api/values/5
+        // PUT api/Contacts/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<Contact> Put(int id, [FromBody]Contact sentContact)
         {
+            var contact = await _dbContext.Contacts.FindAsync(id).ConfigureAwait(false);
+
+            contact.Firstname = sentContact.Firstname;
+            contact.Lastname = sentContact.Lastname;
+            contact.Middlename = sentContact.Middlename;
+
+            _dbContext.SaveChanges();
+            
+            return contact;
         }
 
         // DELETE api/values/5

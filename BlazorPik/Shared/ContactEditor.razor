@@ -1,262 +1,274 @@
 <div class="box contact-preview" data-contact-id="@Contact.Id">
-    <form>
-        <!-- Form und ID input fehlen noch-->
-        <div class="field">
-            <label class="label">Profile Image</label>
-            <div class="field">
-                <figure class="image is-96x96">
-                    <img src="@Contact.ImagePath" alt="Profile image">
-                </figure>
-            </div>
-            <div class="control">
-                <div class="file has-name is-fullwidth">
-                    <label class="file-label">
-                        <input id="image-input" class="file-input" type="file" name="Image">
-                        <span class="file-cta">
-                            <span class="file-icon">
-                                <i class="fas fa-upload"></i>
-                            </span>
-                            <span class="file-label">
-                                Browse…
-                            </span>
-                        </span>
-                        <span id="file-name" class="file-name">
-                            Select a file
-                        </span>
-                    </label>
-                </div>
-            </div>
-        </div>
+@if (ShowIt == true) {
+ <EditForm Model="@Contact" OnValidSubmit="SaveButtonPressed">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
 
-        <!-- Names -->
-        <div class="field">
-            <label class="label">Firstname</label>
-            <div class="control">
-                <input class="input" @bind="@Contact.Firstname" @bind:event="oninput" placeholder="Firstname">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Middlename</label>
-            <div class="control">
-                <input class="input" @bind="@Contact.Middlename" @bind:event="oninput" placeholder="Middlename">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Lastname</label>
-            <div class="control">
-                <input class="input" @bind="@Contact.Lastname" @bind:event="oninput" placeholder="Lastname">
-            </div>
-        </div>
-        <!-- /Names -->
-
-        <!-- Emails -->
-        <div class="panel">
-            <p class="panel-heading">
-                Emails
-                <a class="button is-pulled-right is-small is-success">
-                    <i class="fa fa-plus-circle"></i>
-                </a>
-            </p>
-
-            @foreach (var email in Contact.EmailAddresses)
-            {
-                <div class="panel-block">
-                    <label class="label">@email.Type</label>
-                    <div class="field has-addons">
-                        <p class="control">
-                            <a class="button is-info" href="mailto:@email.Email">
-                                <i class="fa fa-envelope"></i>
-                            </a>
-                        </p>
-                        <div class="control is-expanded ">
-                            <input class="input" value="@email.Email" type="email" placeholder="email@@domoain.com" disabled="disabled">
-                        </div>
-                        <p class="control">
-                            <a class="button is-warning">
-                                <i class="fa fa-pencil-alt"></i>
-                            </a>
-                        </p>
-                        <p class="control">
-                            <a class="button is-danger">
-                                <i class="fa fa-minus-circle"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-        <!-- /Emails -->
-
-        <!-- Birthday -->
-        <div class="field">
-             <label class="label">Birthday</label>
-             <div class="control has-icons-left">
-                 <input class="input" @bind="@Contact.Birthday" @bind:event="oninput" type="date" min="1900-01-01">
-                 <span class="icon is-small is-left">
-                     <i class="fa fa-birthday-cake"></i>
-                 </span>
-             </div>
-         </div>
-        <!-- /Birthday -->
-        
-        <!-- Address -->
-        <div class="field">
-            <label class="label">Address</label>
-            <div class="control">
-                <textarea class="textarea" @bind="@Contact.Address" @bind:event="oninput">
-                    </textarea>
-            </div>
-        </div>
-        <!-- /Address -->
-        
-        <!-- Work -->
-        <div class="field">
-            <label class="label">Employer</label>
-            <div class="control has-icons-left">
-                <input class="input" @bind="@Contact.Employer" @bind:event="oninput" placeholder="Employer">
-                <span class="icon is-small is-left">
-                    <i class="fa fa-building"></i>
-                </span>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Business Title</label>
-            <div class="control has-icons-left">
-                <input class="input" @bind="@Contact.BusinessTitle" @bind:event="oninput" placeholder="Business Title">
-                <span class="icon is-small is-left">
-                    <i class="fa fa-briefcase"></i>
-                </span>
-            </div>
-        </div>
-        <!-- /Work -->
-        
-        <!-- Telephone -->
-        <div class="panel">
-            <p class="panel-heading">
-                Telephone
-                <a class="button is-pulled-right is-small is-success">
-                    <i class="fa fa-plus-circle"></i>
-                </a>
-            </p>
-        
-            @foreach (var telephone in Contact.TelephoneNumbers)
-            {
-                <div class="panel-block">
-                    <label class="label">@telephone.Type</label>
-                    <div class="field has-addons">
-                        <p class="control">
-                            <a class="button is-info" href="tel:@telephone.TelephoneNormalized">
-                                <i class="fa fa-phone"></i>
-                            </a>
-                        </p>
-                        <div class="control is-expanded">
-                            <input class="input" value="@telephone.Telephone" type="tel" disabled="disabled">
-                        </div>
-                        <p class="control">
-                            <a class="button is-warning">
-                                <i class="fa fa-pencil-alt"></i>
-                            </a>
-                        </p>
-                        <p class="control">
-                            <a class="button is-danger">
-                                <i class="fa fa-minus-circle"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-        <!-- /Telephone -->
-
-        <!-- Relationship -->
-        <div class="panel">
-            <p class="panel-heading">
-                Relationships
-                <a class="button is-pulled-right is-small is-success">
-                    <i class="fa fa-plus-circle"></i>
-                </a>
-            </p>
-        
-            @foreach (var relationship in Contact.Relationships)
-            {
-                <div class="panel-block">
-                    <label class="label">@relationship.Type</label>
-                    <div class="field has-addons">
-                        <p class="control">
-                            <a class="button is-info">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </p>
-                        <div class="control is-expanded has-icons-left">
-                            <input class="input" value="@relationship.Person" disabled="disabled">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-user-friends"></i>
-                            </span>
-                        </div>
-                        <p class="control">
-                            <a class="button is-warning">
-                                <i class="fa fa-pencil-alt"></i>
-                            </a>
-                        </p>
-                        <p class="control">
-                            <a class="button is-danger">
-                                <i class="fa fa-minus-circle"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-    <!-- /Relationship -->
-    
-    <!-- Timeline -->
-    <div class="panel">
-        <p class="panel-heading">
-            Status Updates
-            <a class="button is-pulled-right is-small is-success">
-                <i class="fa fa-plus-circle"></i>
-            </a>
-        </p>
-    
-        @foreach (var statusUpdate in Contact.Timeline)
-        {
-            <div class="panel-block">
-                <label class="label">@statusUpdate.Created.ToString("dd.MM.yyyy")</label>
-                <div class="field has-addons">
-                    <div class="control is-expanded">
-                        <input class="input" value="@statusUpdate.StatusText" placeholder="Status update" disabled="disabled">
-                    </div>
-                    <p class="control">
-                        <a class="button is-warning">
-                            <i class="fa fa-pencil-alt"></i>
-                        </a>
-                    </p>
-                    <p class="control">
-                        <a class="button is-danger">
-                            <i class="fa fa-minus-circle"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        }
-    </div>
-    <!-- /Timeline -->
-    
-    <!-- Tags -->
+    <!-- Names -->
     <div class="field">
-        <label class="label">Tags</label>
-        <div class="control has-icons-left">
-            <input class="input" @bind="@Contact.Tags" @bind:event="oninput" placeholder="e.g. football,boardgames,family">
-            <span class="icon is-small is-left">
-                <i class="fa fa-tag"></i>
-            </span>
+        <label class="label">Firstname</label>
+        <div class="control">
+            <InstantInputText class="input" @bind-Value="@Contact.Firstname" type="text" placeholder="Firstname"/>
         </div>
     </div>
-    <!-- /Tags -->
-    
-    <a class="button is-info is-medium">Save</a>
-    <a class="button is-danger is-medium">Delete</a>
-    </form>
+
+    <div class="field">
+        <label class="label">Middlename</label>
+        <div class="control">
+            <InstantInputText class="input" @bind-Value="@Contact.Middlename" type="text" placeholder="Middlename"/>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Lastname</label>
+        <div class="control">
+            <InstantInputText class="input" @bind-Value="@Contact.Lastname" type="text" placeholder="Lastname"/>
+        </div>
+    </div>
+    <!-- /Names -->
+
+    <button type="submit">Save</button>
+    <span>&nbsp;</span>
+    <button type="button" @onclick="CancelButtonPressed">Cancel</button>
+</EditForm>
+}
+<form>
+<!-- Form und ID input fehlen noch-->
+<div class="field">
+    <label class="label">Profile Image</label>
+    <div class="field">
+        <figure class="image is-96x96">
+            <img src="@Contact.ImagePath" alt="Profile image">
+        </figure>
+    </div>
+    <div class="control">
+        <div class="file has-name is-fullwidth">
+            <label class="file-label">
+                <input id="image-input" class="file-input" type="file" name="Image">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Browse…
+                    </span>
+                </span>
+                <span id="file-name" class="file-name">
+                    Select a file
+                </span>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Emails -->
+<div class="panel">
+    <p class="panel-heading">
+        Emails
+        <a class="button is-pulled-right is-small is-success">
+            <i class="fa fa-plus-circle"></i>
+        </a>
+    </p>
+
+    @foreach (var email in Contact.EmailAddresses)
+    {
+        <div class="panel-block">
+            <label class="label">@email.Type</label>
+            <div class="field has-addons">
+                <p class="control">
+                    <a class="button is-info" href="mailto:@email.Email">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </p>
+                <div class="control is-expanded ">
+                    <input class="input" value="@email.Email" type="email" placeholder="email@@domoain.com" disabled="disabled">
+                </div>
+                <p class="control">
+                    <a class="button is-warning">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-danger">
+                        <i class="fa fa-minus-circle"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+<!-- /Emails -->
+
+<!-- Birthday -->
+<div class="field">
+    <label class="label">Birthday</label>
+    <div class="control has-icons-left">
+        <input class="input" @bind="@Contact.Birthday" @bind:event="oninput" type="date" min="1900-01-01">
+        <span class="icon is-small is-left">
+            <i class="fa fa-birthday-cake"></i>
+        </span>
+    </div>
+</div>
+<!-- /Birthday -->
+
+<!-- Address -->
+<div class="field">
+    <label class="label">Address</label>
+    <div class="control">
+        <textarea class="textarea" @bind="@Contact.Address" @bind:event="oninput">
+                    </textarea>
+    </div>
+</div>
+<!-- /Address -->
+
+<!-- Work -->
+<div class="field">
+    <label class="label">Employer</label>
+    <div class="control has-icons-left">
+        <input class="input" @bind="@Contact.Employer" @bind:event="oninput" placeholder="Employer">
+        <span class="icon is-small is-left">
+            <i class="fa fa-building"></i>
+        </span>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Business Title</label>
+    <div class="control has-icons-left">
+        <input class="input" @bind="@Contact.BusinessTitle" @bind:event="oninput" placeholder="Business Title">
+        <span class="icon is-small is-left">
+            <i class="fa fa-briefcase"></i>
+        </span>
+    </div>
+</div>
+<!-- /Work -->
+
+<!-- Telephone -->
+<div class="panel">
+    <p class="panel-heading">
+        Telephone
+        <a class="button is-pulled-right is-small is-success">
+            <i class="fa fa-plus-circle"></i>
+        </a>
+    </p>
+
+    @foreach (var telephone in Contact.TelephoneNumbers)
+    {
+        <div class="panel-block">
+            <label class="label">@telephone.Type</label>
+            <div class="field has-addons">
+                <p class="control">
+                    <a class="button is-info" href="tel:@telephone.TelephoneNormalized">
+                        <i class="fa fa-phone"></i>
+                    </a>
+                </p>
+                <div class="control is-expanded">
+                    <input class="input" value="@telephone.Telephone" type="tel" disabled="disabled">
+                </div>
+                <p class="control">
+                    <a class="button is-warning">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-danger">
+                        <i class="fa fa-minus-circle"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+<!-- /Telephone -->
+
+<!-- Relationship -->
+<div class="panel">
+    <p class="panel-heading">
+        Relationships
+        <a class="button is-pulled-right is-small is-success">
+            <i class="fa fa-plus-circle"></i>
+        </a>
+    </p>
+
+    @foreach (var relationship in Contact.Relationships)
+    {
+        <div class="panel-block">
+            <label class="label">@relationship.Type</label>
+            <div class="field has-addons">
+                <p class="control">
+                    <a class="button is-info">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </p>
+                <div class="control is-expanded has-icons-left">
+                    <input class="input" value="@relationship.Person" disabled="disabled">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-user-friends"></i>
+                    </span>
+                </div>
+                <p class="control">
+                    <a class="button is-warning">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-danger">
+                        <i class="fa fa-minus-circle"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+<!-- /Relationship -->
+
+<!-- Timeline -->
+<div class="panel">
+    <p class="panel-heading">
+        Status Updates
+        <a class="button is-pulled-right is-small is-success">
+            <i class="fa fa-plus-circle"></i>
+        </a>
+    </p>
+
+    @foreach (var statusUpdate in Contact.Timeline)
+    {
+        <div class="panel-block">
+            <label class="label">@statusUpdate.Created.ToString("dd.MM.yyyy")</label>
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" value="@statusUpdate.StatusText" placeholder="Status update" disabled="disabled">
+                </div>
+                <p class="control">
+                    <a class="button is-warning">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-danger">
+                        <i class="fa fa-minus-circle"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+<!-- /Timeline -->
+
+<!-- Tags -->
+<div class="field">
+    <label class="label">Tags</label>
+    <div class="control has-icons-left">
+        <input class="input" @bind="@Contact.Tags" @bind:event="oninput" placeholder="e.g. football,boardgames,family">
+        <span class="icon is-small is-left">
+            <i class="fa fa-tag"></i>
+        </span>
+    </div>
+</div>
+<!-- /Tags -->
+
+<a class="button is-info is-medium">Save</a>
+<a class="button is-danger is-medium">Delete</a>
+</form>
 </div>
