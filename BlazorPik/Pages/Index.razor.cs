@@ -25,11 +25,13 @@ namespace BlazorPik.Pages
             var result = await ContactService.UpdateContact(SelectedContact);
             if (result.IsNull())
             {
-                // Todo was ist hier zu tun?
+                // TODO what should I do in this case?
             }
             else
             {
                 SelectedContact = result;
+                Contacts = await ContactService.GetContacts();
+                // TODO this is not a great way to update the UI. Loading ALL the contacts again is too much.
             }
         }
         

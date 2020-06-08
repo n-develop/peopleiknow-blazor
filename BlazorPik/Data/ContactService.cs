@@ -11,7 +11,7 @@ namespace BlazorPik.Data
 {
     public class ContactService
     {
-        static string baseURL = "https://localhost:5001/";
+        static readonly string baseURL = "https://localhost:5001/";
 
          
         public ContactService()
@@ -22,13 +22,11 @@ namespace BlazorPik.Data
         {
             try
             {
-                using (var http = new HttpClient())
-                {
-                    var uri = new Uri(baseURL + "api/contacts");
-                    string json = await http.GetStringAsync(uri);
-                    var customers = JsonConvert.DeserializeObject<List<ContactTeaserModel>>(json);
-                    return customers;
-                }
+                using var http = new HttpClient();
+                var uri = new Uri(baseURL + "api/contacts");
+                var json = await http.GetStringAsync(uri);
+                var customers = JsonConvert.DeserializeObject<List<ContactTeaserModel>>(json);
+                return customers;
             }
             catch (Exception ex)
             {
@@ -40,13 +38,11 @@ namespace BlazorPik.Data
         {
             try
             {
-                using (var http = new HttpClient())
-                {
-                    var uri = new Uri(baseURL + "api/contacts/" + id);
-                    string json = await http.GetStringAsync(uri);
-                    var customers = JsonConvert.DeserializeObject<Contact>(json);
-                    return customers;
-                }
+                using var http = new HttpClient();
+                var uri = new Uri(baseURL + "api/contacts/" + id);
+                var json = await http.GetStringAsync(uri);
+                var customers = JsonConvert.DeserializeObject<Contact>(json);
+                return customers;
             }
             catch (Exception ex)
             {
@@ -58,21 +54,19 @@ namespace BlazorPik.Data
         {
             try
             {
-                using (var http = new HttpClient())
+                using var http = new HttpClient();
+                var uri = new Uri(baseURL + "api/contacts/" + contact.Id);
+                var json = JsonConvert.SerializeObject(contact, Formatting.Indented);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    
+                var result = await http.PutAsync(uri, content).ConfigureAwait(false);
+                if (result.StatusCode == HttpStatusCode.OK)
                 {
-                    var uri = new Uri(baseURL + "api/contacts/" + contact.Id);
-                    string json = JsonConvert.SerializeObject(contact, Formatting.Indented);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    
-                    var result = await http.PutAsync(uri, content).ConfigureAwait(false);
-                    if (result.StatusCode == HttpStatusCode.OK)
-                    {
-                        var customers = JsonConvert.DeserializeObject<Contact>(json);
-                        return customers;
-                    }
-                    
-                    return NullContact.GetInstance();
+                    var customers = JsonConvert.DeserializeObject<Contact>(json);
+                    return customers;
                 }
+                    
+                return NullContact.GetInstance();
             }
             catch (Exception e)
             {
